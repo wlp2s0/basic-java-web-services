@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@Table(name = "books")
 public class Book {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
