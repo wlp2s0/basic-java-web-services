@@ -6,7 +6,7 @@ WORKDIR /home/gradle/src
 
 RUN gradle build --no-daemon
 
-FROM openjdk:11-jre-slim
+FROM adoptopenjdk:15-jre-hotspot
 
 RUN mkdir /app
 
