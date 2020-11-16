@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  mysql:
+    restart: unless-stopped
+    image: mariadb
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
+      MYSQL_USER: java
+      MYSQL_PASSWORD: example
+      MYSQL_DATABASE: java
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+#   app:
+#     restart: unless-stopped
+#     build:
+#       context: .
+#       dockerfile: ./.docker/Dockerfile
+#     environment:
+#       SPRING_DATASOURCE_URL: jdbc:mysql://mysql/java
+#       SPRING_DATASOURCE_USERNAME: java
+#       SPRING_DATASOURCE_PASSWORD: example
+#       FLYWAY_USER: java
+#       FLYWAY_PASSWORD: example
+#       SERVER_PORT: 80
+#     ports:
+#       - 8084:80
+#     depends_on:
+#       - mysql
+
+volumes:
+  mysql_data:
