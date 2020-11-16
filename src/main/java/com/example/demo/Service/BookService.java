@@ -18,18 +18,15 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    @Transactional()
     public Book create(Book book) {
         Book savedBook = bookRepository.save(book);
         return savedBook;
     }
 
-    @Transactional(readOnly = true)
     public List<Book> findAll() {
         return bookRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
     public ResponseEntity<Book> retrieveBook(Integer id) {
         Optional<Book> bookOptional = bookRepository.findById(id);
         if(bookOptional.isPresent()) {
@@ -39,7 +36,6 @@ public class BookService {
         }
     }
 
-    @Transactional()
     public ResponseEntity<Book> updateBook(Book updatedBook, Integer id) {
         Optional<Book> bookOptional = bookRepository.findById(id);
         if(!bookOptional.isPresent()){
@@ -55,12 +51,10 @@ public class BookService {
         }
     }
 
-    @Transactional()
     public ResponseEntity deleteBook(Integer id) {
         bookRepository.deleteById(id);
         Response response = new Response();
         response.setMessage("Book Successfully Deleted");
         return ResponseEntity.ok(response);
     }
-
 }
