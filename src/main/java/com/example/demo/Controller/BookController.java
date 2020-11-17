@@ -1,44 +1,48 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Entity.Book;
-import com.example.demo.Service.BookService;
+import com.example.demo.Repository.BookRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Collection;
 
 @RestController()
 public class BookController {
 
 
-    private final BookService bookService;
+    private final BookRepository bookRepository;
 
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
+    public BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
     @PostMapping("/api/v1/book")
     public Book createBook(@RequestBody Book book) {
-        return bookService.create(book);
+        Integer id = bookRepository.createBook(book.getTitle(), book.getAuthor(), book.getRating());
+        return bookRepository.findBook(id);
     }
 
     @GetMapping("/api/v1/book")
-    public List<Book> retrieveAllBooks() {
-        return bookService.findAll();
+    public Collection<Book> retrieveAllBooks() {
+        return bookRepository.findAllBooks();
     }
 
     @GetMapping("/api/v1/book/{id}")
-    public ResponseEntity<Book> retrieveBook(@PathVariable Integer id) {
-        return bookService.retrieveBook(id);
+    public Book retrieveBook(@PathVariable Integer id) {
+        return bookRepository.findBook(id);
     }
 
     @PutMapping("/api/v1/book/{id}")
-    public ResponseEntity<Book> updateBook(@RequestBody Book updatedBook, @PathVariable Integer id) {
-        return bookService.updateBook(updatedBook, id);
+    public Book updateBook(@RequestBody Book book, @PathVariable Integer id) {
+        bookRepository.updateBook(id, book.getTitle(), book.getAuthor(), book.getRating());
+        return bookRepository.findBook(id);
     }
 
     @DeleteMapping("/api/v1/book/{id}")
     public ResponseEntity deleteBook(@PathVariable Integer id) {
-        return bookService.deleteBook(id);
+        bookRepository.deleteBook(id);
+        return ResponseEntity.ok("ok");
+        // return bookService.deleteBook(id);
     }
 }
