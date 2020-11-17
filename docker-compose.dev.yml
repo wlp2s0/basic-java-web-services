@@ -1,18 +1,17 @@
 version: "3"
 
 services:
-  mysql:
+  postgres:
     restart: unless-stopped
-    image: mariadb
+    image: postgres
     environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: "true"
-      MYSQL_USER: java
-      MYSQL_PASSWORD: example
-      MYSQL_DATABASE: java
+      POSTGRES_USER: java
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: java
     ports:
-      - 3306:3306
+      - 5432:5432
     volumes:
-      - mysql_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data
 
 #   app:
 #     restart: unless-stopped
@@ -32,4 +31,4 @@ services:
 #       - mysql
 
 volumes:
-  mysql_data:
+  postgres_data:
