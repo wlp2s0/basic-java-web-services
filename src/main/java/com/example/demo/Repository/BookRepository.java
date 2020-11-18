@@ -22,6 +22,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query(value = "UPDATE books SET (title, author, rating) = (?2, ?3, ?4) WHERE id = ?1 RETURNING id", nativeQuery = true)
     Integer updateBook(Integer id, String title, String author, Integer rating);
 
-    @Query(value = "DELETE FROM books WHERE id = ?1", nativeQuery = true)
-    void deleteBook(Integer id);
+    @Query(value = "DELETE FROM books WHERE id = ?1 RETURNING id", nativeQuery = true)
+    Integer deleteBook(Integer id);
 }
