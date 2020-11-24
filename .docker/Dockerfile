@@ -1,4 +1,4 @@
-FROM gradle:jdk15 AS build
+FROM gradle:jdk11 AS build
 
 COPY --chown=gradle:gradle . /home/gradle/src
 
@@ -6,7 +6,7 @@ WORKDIR /home/gradle/src
 
 RUN gradle build --no-daemon
 
-FROM adoptopenjdk:15-jre-hotspot
+FROM oracle/graalvm-ce:20.3.0-java11
 
 RUN mkdir /app
 
