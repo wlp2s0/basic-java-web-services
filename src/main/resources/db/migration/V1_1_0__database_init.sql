@@ -1,7 +1,6 @@
-CREATE TABLE IF NOT EXISTS books
-(
-    id     SERIAL PRIMARY KEY,
-    title  VARCHAR NOT NULL,
-    author VARCHAR NOT NULL,
-    rating INT     NOT NULL
-)
+CREATE TABLE books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL,
+    rating INT NOT NULL
+);

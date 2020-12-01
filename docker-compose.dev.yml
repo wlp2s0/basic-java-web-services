@@ -1,17 +1,18 @@
 version: "3"
 
 services:
-  postgres:
+  mysql:
     restart: unless-stopped
-    image: postgres
+    image: mariadb
     environment:
-      POSTGRES_USER: java
-      POSTGRES_PASSWORD: example
-      POSTGRES_DB: java
-    ports:
-      - 5432:5432
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
+      MYSQL_USER: java
+      MYSQL_PASSWORD: example
+      MYSQL_DATABASE: java
+    ports: 
+      - 3306:3306
+    volumes: 
+      - mysql_data:/var/lib/mysql
 
   app:
     restart: unless-stopped
@@ -19,7 +20,7 @@ services:
       context: .
       dockerfile: ./.docker/Dockerfile
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres/java
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql/java
       SPRING_DATASOURCE_USERNAME: java
       SPRING_DATASOURCE_PASSWORD: example
       FLYWAY_USER: java
@@ -28,7 +29,7 @@ services:
     ports:
       - 8084:80
     depends_on:
-      - postgres
+      - mysql
 
 volumes:
-  postgres_data:
+  mysql_data:
